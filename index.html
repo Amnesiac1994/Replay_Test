@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Replay Quadra</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+    <div class="login-card">
+        <div class="logo-area">
+            <span class="icon">⚽</span>
+            <h1>Replay Sports</h1>
+            <p>Escaneie, jogue e guarde seus melhores lances!</p>
+        </div>
+        
+        <div id="loginError" class="alert alert-error hidden">Por favor, digite seu nome para continuar.</div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="name">Seu Nome / Apelido:</label>
+                <input type="text" id="name" name="name" placeholder="Ex: Lucas Silva" required autofocus autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Entrar na Quadra 🚀</button>
+        </form>
+
+        <p class="login-footer">Desenvolvido para Quadras Inteligentes Ubiquiti (Demo GitHub Pages)</p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (!name) {
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            errorEl.classList.add('hidden');
+            const role = (name.toLowerCase() === 'admin' || name.toLowerCase() === 'vip') ? 'vip' : 'standard';
+
+            localStorage.setItem('replay_player_name', name);
+            localStorage.setItem('replay_user_role', role);
+
+            window.location.href = 'quadra.html';
+        });
+
+        // Se já estiver logado, redireciona direto
+        if (localStorage.getItem('replay_player_name')) {
+            window.location.href = 'quadra.html';
+        }
+    </script>
+</body>
+</html>
